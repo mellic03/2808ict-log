@@ -11,7 +11,7 @@ RUN npm install
 COPY . .
 
 # The pizzeria app requires these environment variables to be set.
-ENV MONGODB_URI="mongodb://mongodocker:27017/"
+ENV MONGODB_URI="mongodb://mongo-backend:27017/"
 ENV PORT=4200
 ENV SECRET="secret"
 
