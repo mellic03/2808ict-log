@@ -1,7 +1,7 @@
 # 2808ict Assignment 1
 
 
-# Task 1
+# Task 1 - Individual Containers
 
 - Install prerequisite packages \
     `$ sudo apt install blah blah blah...`
@@ -148,11 +148,10 @@ Run the containers in this order, this is required because:
 
 
 
-
-# Task 2
-
+# Task 2 - Docker Compose
 
 
-# Task 3
+
+# Task 3 - Minikube and Kubectl
 
 
