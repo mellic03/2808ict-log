@@ -3,8 +3,11 @@
 
 # Task 1
 
-- Install docker
-`sudo apt install docker`
+- Install prerequisite packages \
+    `$ sudo apt install blah blah blah...`
+
+- Install docker \
+    `$ sudo apt install docker`
 
 
 - Download the mongo and mongo-express docker images \
