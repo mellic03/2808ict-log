@@ -95,7 +95,7 @@
             large_client_header_buffers 4 32k;
 
             upstream frontend-server {
-                server frontend:4200;
+                server node-frontend:4200;
             }
 
             server {
