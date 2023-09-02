@@ -128,16 +128,22 @@
 
 
 ### Start the Docker containers
-- MongoDB backend \
+
+Run the containers in this order, this is required because:
+- Both Mongo Express and Nginx will try connecting to the MongoDB backend on startup.
+- Nginx will try connecting to the frontend on startup.
+
+
+1. MongoDB backend \
     `$ docker run --network=bridge-net --name=mongo-backend -p 27017:27017 -d mongo`
 
-- Mongo Express \
+2. Mongo Express \
     `$ docker run --network=bridge-net --name=mongoexpress -p 8081:8081 -d mongo-express -e ME_CONFIG_MONGODB_SERVER=mongo-backend`
 
-- Pizzeria frontend \
+3. Pizzeria frontend \
     `$ docker run --network=bridge-net --name=node-frontend -p 4200:4200 -d pizzeria`
 
-- Nginx proxy \
+4. Nginx proxy \
     `$ docker run --network=bridge-net --name=nginx-proxy -p 80:80 -p 443:443 -d proxy`
 
 
