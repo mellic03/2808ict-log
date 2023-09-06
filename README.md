@@ -235,27 +235,39 @@ Run the containers in this order, this is required because:
     - `-d mongo` -Run a container using the `mongo` image.
     - `--network=bridge-net` -Run the container on the `bridge-net` network.
     - `--name=backend` -Name the container `backend`.
-    - `-p 27017:27017` -Map the internal port 27017 to the external port 27017. \
+    - `-p 27017:27017` -Map the internal port 27017 to the external port 27017.
 
 2. Mongo Express: `$ docker run --network=bridge-net --name=mongoexpress -e ME_CONFIG_MONGODB_SERVER=backend -p 8081:8081 -d mongo-express`
     - `-d mongo-express` -Run a container using the `mongo-express` image.
     - `--network=bridge-net` -Run the container on the `bridge-net` network.
     - `--name=mongoexpress` -Name the container `mongoexpress`.
-    - `-p 8081:8081` -Map the internal port 8081 to the external port 8081. \
+    - `-p 8081:8081` -Map the internal port 8081 to the external port 8081.
     - `-e ME_CONFIG_MONGODB_SERVER=backend` -Set the environment variable `ME_CONFIG_MONGODB_SERVER` to `backend`. This environment holds the address used to connect to the MongoDB database.
 
 3. Pizzeria frontend: `$ docker run --network=bridge-net --name=frontend -p 4200:4200 -d pizzeria`
     - `-d pizzeria` -Run a container using the `pizzeria` image.
     - `--network=bridge-net` -Run the container on the `bridge-net` network.
     - `--name=frontend` -Name the container `frontend`.
-    - `-p 4200:4200` -Map the internal port 4200 to the external port 4200. \
+    - `-p 4200:4200` -Map the internal port 4200 to the external port 4200.
 
 4. Nginx proxy: `$ docker run --network=bridge-net --name=proxy -p 80:80 -p 443:443 -d nginx-proxy`
     - `-d nginx-proxy` -Run a container using the `nginx-proxy` image.
     - `--network=bridge-net` -Run the container on the `bridge-net` network.
     - `--name=proxy` -Name the container `proxy`.
-    - `-p 443:443` -Map the internal port 443 (HTTPS) to the external port 443. \
+    - `-p 443:443` -Map the internal port 443 (HTTPS) to the external port 443.
 
 
 The Pizzeria application should now be accessible over HTTPS and the Mongo Express gui over HTTP on port 8081.
 
+
+#### Nginx Proxy logs
+![](proxy-logs.png)
+
+#### Pizzeria (frontend) logs
+![](frontend-logs.png)
+
+#### Mongo Express logs (not working idk why do it tomorrow)
+![](mongoexpress-logs.png)
+
+#### MongoDB (backend) logs
+![](backend-logs.png)
