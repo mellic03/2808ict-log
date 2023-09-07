@@ -7,7 +7,7 @@
     - name: Assignment 1
     - OS Image: Ubuntu Server 22.04 LTS x86_64
     - Instance Type: t2.small
-    - Security Configuration: Allow SSH and HTTPS
+    - Security Configuration: Allow incoming on ports: SSH, HTTP, HTTPS and 8081.
     - Storage Configuration: 32 GiB of gp2 storage.
 
 - Update apt packages and install any updates \
@@ -266,7 +266,7 @@ The Pizzeria application should now be accessible over HTTPS and the Mongo Expre
 #### Pizzeria (frontend) logs
 ![](frontend-logs.png)
 
-#### Mongo Express logs (not working idk why do it tomorrow)
+#### Mongo Express logs
 ![](mongoexpress-logs.png)
 
 #### MongoDB (backend) logs
