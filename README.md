@@ -171,7 +171,7 @@ What is meant by automatic DNS resolution? We can get the local ipv4 address of 
             large_client_header_buffers 4 32k;
 
             upstream frontend-server {
-                server node-frontend:4200;
+                server frontend:4200;
             }
 
             server {
