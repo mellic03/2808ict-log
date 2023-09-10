@@ -85,28 +85,28 @@ What is meant by automatic DNS resolution? We can get the local ipv4 address of 
     `$ cd pizzeria` \
     `$ nano Dockerfile`
 
-        # Use the node docker image as a base for this image.
-        FROM node:latest
+      # Use the node docker image as a base for this image.
+      FROM node:latest
 
-        WORKDIR /usr/src/app
-        COPY package*.json ./
+      WORKDIR /usr/src/app
+      COPY package*.json ./
 
-        # Install node.js dependencies (found in package.json).
-        RUN npm install
+      # Install node.js dependencies (found in package.json).
+      RUN npm install
 
-        # Copy all directory contents.
-        COPY . .
+      # Copy all directory contents.
+      COPY . .
 
-        # The pizzeria app requires these environment variables to be set.
-        ENV MONGODB_URI="mongodb://backend:27017/"
-        ENV PORT=4200
-        ENV SECRET="secret"
+      # The pizzeria app requires these environment variables to be set.
+      ENV MONGODB_URI="mongodb://backend:27017/"
+      ENV PORT=4200
+      ENV SECRET="secret"
 
-        # Run the app on port 4200.
-        EXPOSE 4200
+      # Run the app on port 4200.
+      EXPOSE 4200
 
-        # Run the app with the command "node server.js".
-        CMD ["node", "server.js"]
+      # Run the app with the command "node server.js".
+      CMD ["node", "server.js"]
 
 
 - Build the docker image, we'll name the image "pizzeria". \
@@ -130,13 +130,13 @@ What is meant by automatic DNS resolution? We can get the local ipv4 address of 
 - Create the domains.ext file. \
     `$ nano domains.ext`
 
-        authorityKeyIdentifier=keyid, issuer
-        basicConstraints=CA:FALSE
-        keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
-        subjectAltName = @alt_names
-        [alt_names]
-        DNS.1 = localhost
-        DNS.2 = fake1.local
+      authorityKeyIdentifier=keyid, issuer
+      basicConstraints=CA:FALSE
+      keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+      subjectAltName = @alt_names
+      [alt_names]
+      DNS.1 = localhost
+      DNS.2 = fake1.local
 
 - Generate the ssl certificate. \
     `$ openssl req -new -nodes -newkey rsa:2048 -keyout localhost.key -out localhost.csr -subj "/C=US/ST=YourState/L=YourCity/O=Example-Certificates/CN=localhost.local"`
@@ -153,61 +153,61 @@ What is meant by automatic DNS resolution? We can get the local ipv4 address of 
 - Write the nginx configuration file \
     `$ nano nginx.conf`
 
-        worker_processes 1;
+      worker_processes 1;
 
-        events {
-            worker_connections 1024;
-        }
+      events {
+          worker_connections 1024;
+      }
 
-        http {
-            sendfile on;
-            large_client_header_buffers 4 32k;
+      http {
+          sendfile on;
+          large_client_header_buffers 4 32k;
 
-            upstream frontend-server {
-                server frontend:4200;
-            }
+          upstream frontend-server {
+              server frontend:4200;
+          }
 
-            server {
-                listen 443 ssl;
-                server_name localhost;
-                ssl_certificate /etc/ssl/certs/localhost.crt;
-                ssl_certificate_key /etc/ssl/private/localhost.key;
+          server {
+              listen 443 ssl;
+              server_name localhost;
+              ssl_certificate /etc/ssl/certs/localhost.crt;
+              ssl_certificate_key /etc/ssl/private/localhost.key;
 
-                location / {
-                    proxy_pass http://frontend-server/;
-                    proxy_connect_timeout 120s;
-                    proxy_send_timeout 120s;
-                    proxy_read_timeout 120s;
-                    proxy_redirect off;
-                    proxy_http_version 1.1;
-                    proxy_cache_bypass $http_upgrade;
-                    proxy_set_header Upgrade $http_upgrade;
-                    proxy_set_header Connection keep-alive;
-                    proxy_set_header Host $host;
-                    proxy_set_header X-Real-IP $remote_addr;
-                    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                    proxy_set_header X-Forwarded-Proto $scheme;
-                    proxy_set_header X-Forwarded-Host $server_name;
-                    proxy_buffer_size 128k;
-                    proxy_buffers 4 256k;
-                    proxy_busy_buffers_size 256k;
-                }
-            }
-        }
+              location / {
+                  proxy_pass http://frontend-server/;
+                  proxy_connect_timeout 120s;
+                  proxy_send_timeout 120s;
+                  proxy_read_timeout 120s;
+                  proxy_redirect off;
+                  proxy_http_version 1.1;
+                  proxy_cache_bypass $http_upgrade;
+                  proxy_set_header Upgrade $http_upgrade;
+                  proxy_set_header Connection keep-alive;
+                  proxy_set_header Host $host;
+                  proxy_set_header X-Real-IP $remote_addr;
+                  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                  proxy_set_header X-Forwarded-Proto $scheme;
+                  proxy_set_header X-Forwarded-Host $server_name;
+                  proxy_buffer_size 128k;
+                  proxy_buffers 4 256k;
+                  proxy_busy_buffers_size 256k;
+              }
+          }
+      }
 
 #### Docker Configuration
 - Write the Dockerfile. \
     `$ nano Dockerfile`
 
-        # Use the nginx docker image as a base
-        FROM nginx
+      # Use the nginx docker image as a base
+      FROM nginx
 
-        # Copy the nginx.conf we just wrote to the required location
-        COPY nginx.conf /etc/nginx/nginx.conf
+      # Copy the nginx.conf we just wrote to the required location
+      COPY nginx.conf /etc/nginx/nginx.conf
 
-        # Copy the SSL cert + key to the required location
-        COPY ssl/localhost.crt /etc/ssl/certs/localhost.crt
-        COPY ssl/localhost.key /etc/ssl/private/localhost.key
+      # Copy the SSL cert + key to the required location
+      COPY ssl/localhost.crt /etc/ssl/certs/localhost.crt
+      COPY ssl/localhost.key /etc/ssl/private/localhost.key
 
 - Build the Docker image. We'll name the image "nginx-proxy". \
     `$ docker build -t nginx-proxy .`
