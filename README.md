@@ -78,13 +78,6 @@ What is meant by automatic DNS resolution? We can get the local ipv4 address of 
     `$ wget http://formal-analysis.com/tmp/pizzeria.zip` \
     `$ unzip pizzeria.zip`
 
-- Delete the original zip file and the __MACOSX folder. \
-    `$ rm pizzeria.zip` \
-    `$ rm -R __MACOSX`
-
-- Rename the pizzeria-assignment1 folder to pizzeria. \
-    `$ mv pizzeria-assignment1 pizzeria`
-
 
 #### Build the Docker Image
 
@@ -383,7 +376,7 @@ Like in task 1, the pizzeria app requires some environment variables to be defin
         containers:
           - name: frontend
             imagePullPolicy: Never
-            image: frontend
+            image: pizzeria
             env:
             - name: MONGODB_URI
               value: "mongodb://backend:27017/"
@@ -530,4 +523,5 @@ Like in task 1, the pizzeria app requires some environment variables to be defin
 
 #### Expose the app
 - Run this. \
-  `$ kubectl port-forward svc/proxy-service 443:443 --address 0.0.0.0 &`
+  `$ kubectl port-forward svc/proxy-service 443:443 --address 0.0.0.0 &` \
+  `$ kubectl port-forward svc/service-name external:internal --address 0.0.0.0 &`
