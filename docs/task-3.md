@@ -255,7 +255,11 @@ Like in task 1, the pizzeria app requires some environment variables to be defin
   `$ kubectl apply -f proxy-service.yml`
 
 
-#### Expose the app
-- Run this. \
-  `$ kubectl port-forward svc/proxy-service 443:443 --address 0.0.0.0 &` \
-  `$ kubectl port-forward svc/service-name external:internal --address 0.0.0.0 &`
+#### Expose the App
+
+- Expose the Nginx server to the internet. \
+  `$ kubectl port-forward svc/proxy-service 8080:443 --address 0.0.0.0 &`
+  - `svc/proxy-service` -The Service to run, in our case the nginx proxy.
+  - `8080:443` -Forward the external port 8080 to internal port 443 (HTTPS). The external port is the one used to connect to the service over the internet.
+  - `--address 0.0.0.0` -Specify which IP address to allow connections from. `0.0.0.0` will allow connections from any IP address.
+  - `&` - An ampersand tells Linux to run the process in the background, leaving the shell available to use.

@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pizzeria-deployment
+  labels:
+    app: pizzeria
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pizzeria
+  template:
+    metadata:
+      labels:
+        app: pizzeria
+    spec:
+      containers:
+      - name: frontend
+        image: pizzeria
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 4200

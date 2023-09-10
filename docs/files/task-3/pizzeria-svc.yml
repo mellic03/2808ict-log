@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pizzeria-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: pizzeria
+  ports:
+    - protocol: TCP
+      port: 4200
+      targetPort: 4200
+      nodePort: 32000
