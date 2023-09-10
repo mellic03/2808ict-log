@@ -196,14 +196,14 @@ The Pizzeria application should now be accessible over HTTPS and the Mongo Expre
 
 
 #### Nginx Proxy logs
-![](proxy-logs.png)
+![](img/task%201/proxy-logs.png)
 
 #### Pizzeria (frontend) logs
-![](frontend-logs.png)
+![](img/task%201/frontend-logs.png)
 
 #### Mongo Express logs
-![](mongoexpress-logs.png)
+![](img/task%201/mongoexpress-logs.png)
 
 #### MongoDB (backend) logs
-![](backend-logs.png)
+![](img/task%201/backend-logs.png)
 
