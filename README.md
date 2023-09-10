@@ -283,7 +283,7 @@ The Pizzeria application should now be accessible over HTTPS and the Mongo Expre
 ## Install Minikube
 - Install Minikube. \
     `$ curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64` \
-    `$ sudo install minikube-linux-amd64 /usr/local/bin/minikube` \
+    `$ sudo install minikube-linux-amd64 /usr/local/bin/minikube`
 
 - Create alias for kubectl. \
     `$ alias kubectl="minikube kubectl --"`
