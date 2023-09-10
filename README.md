@@ -221,7 +221,7 @@ Now that we have all the images needed, we can run them.
 
 
 Run the containers in this order, this is required because:
-- Both Mongo Express and Nginx will try connecting to the MongoDB backend on startup.
+- Both Mongo Express and the pizzeria frontend will try connecting to the MongoDB backend on startup.
 - Nginx will try connecting to the frontend on startup.
 
 
