@@ -222,7 +222,7 @@ Now that we have all the images needed, we can run them.
 
 Run the containers in this order, this is required because:
 - Both Mongo Express and the pizzeria frontend will try connecting to the MongoDB backend on startup.
-- Nginx will try connecting to the frontend on startup.
+- Nginx will try connecting to the pizzeria frontend on startup.
 
 
 1. MongoDB backend: `$ docker run --network=bridge-net --name=backend -p 27017:27017 -d mongo`
