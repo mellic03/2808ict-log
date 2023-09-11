@@ -5,6 +5,9 @@
 minikube kubectl -- apply -f mongo-dep.yml
 minikube kubectl -- apply -f mongo-svc.yml
 
+minikube kubectl -- apply -f mongoexpress-dep.yml
+minikube kubectl -- apply -f mongoexpress-svc.yml
+
 minikube kubectl -- apply -f pizzeria-pod.yml
 minikube kubectl -- apply -f pizzeria-dep.yml
 minikube kubectl -- apply -f pizzeria-svc.yml

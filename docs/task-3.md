@@ -43,8 +43,8 @@
     `$ docker build -t frontend .`
 
 #### Create a deployment for MongoDB
-- Create a mongo-deployment.yml file. \
-  `$ nano mongo-deployment.yml`
+- Create a mongo-dep.yml file. \
+  `$ nano mongo-dep.yml`
 
       apiVersion: apps/v1
       kind: Deployment
@@ -69,12 +69,12 @@
               - containerPort: 27017
 
 - Apply the deployment. \
-  `$ kubectl apply -f mongo-deployment.yml`
+  `$ kubectl apply -f mongo-dep.yml`
 
 
 #### Create a service for MongoDB
-- Create a mongo-service.yml file. \
-  `$ nano mongo-service.yml`
+- Create a mongo-svc.yml file. \
+  `$ nano mongo-svc.yml`
 
       apiVersion: v1
       kind: Service
@@ -89,7 +89,64 @@
             targetPort: 27017
 
 - Apply the service. \
-  `$ kubectl apply -f mongo-service.yml`
+  `$ kubectl apply -f mongo-svc.yml`
+
+
+#### Create a deployment for Mongo Express
+- Create a mongo-dep.yml file. \
+  `$ nano mongoexpress-dep.yml`
+
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: mongoexpress-deployment
+        labels:
+          app: mongoexpress
+      spec:
+        replicas: 1
+        selector:
+          matchLabels:
+            app: mongoexpress
+        template:
+          metadata:
+            labels:
+              app: mongoexpress
+          spec:
+            containers:
+            - name: mongoexpress
+              image: mongo-express
+              ports:
+              - containerPort: 8081
+              env:
+              - name: ME_CONFIG_MONGODB_SERVER
+                value: "mongo-service"
+
+
+- Apply the deployment. \
+  `$ kubectl apply -f mongoexpress-dep.yml`
+
+
+#### Create a service for Mongo Express
+- Create a mongoexpress-svc.yml file. \
+  `$ nano mongoexpress-svc.yml`
+
+      apiVersion: v1
+      kind: Service
+      metadata:
+        name: mongoexpress-service
+      spec:
+        type: LoadBalancer
+        selector:
+          app: mongoexpress
+        ports:
+          - protocol: TCP
+            port: 8081
+            targetPort: 8081
+
+- Apply the service. \
+  `$ kubectl apply -f mongoexpress-svc.yml`
+
+
 
 #### Create a pod for the Pizzeria app
 Like in task 1, the pizzeria app requires some environment variables to be defined.
@@ -127,10 +184,12 @@ Like in task 1, the pizzeria app requires some environment variables to be defin
   `$ kubectl logs pizzeria-pod` \
   ![](img/task%203/pod-logs.png)
 
+
+
 #### Create a deployment for the Pizzeria app
 
-- Create a pizzeria-deployment.yml file. \
-  `$ nano pizzeria-deployment.yml`
+- Create a pizzeria-dep.yml file. \
+  `$ nano pizzeria-dep.yml`
 
       apiVersion: apps/v1
       kind: Deployment
@@ -156,11 +215,11 @@ Like in task 1, the pizzeria app requires some environment variables to be defin
               - containerPort: 4200
 
 - Run the deployment. \
-  `$ kubectl apply -f pizzeria-deployment.yml`
+  `$ kubectl apply -f pizzeria-dep.yml`
 
 #### Create a service for the Pizzeria app
-- Create a pizzeria-service.yml file. \
-  `$ nano pizzeria-service.yml`
+- Create a pizzeria-svc.yml file. \
+  `$ nano pizzeria-svc.yml`
 
       apiVersion: v1
       kind: Service
@@ -178,7 +237,7 @@ Like in task 1, the pizzeria app requires some environment variables to be defin
 
 
 - Apply the service. \
-  `$ kubectl apply -f pizzeria-service.yml`
+  `$ kubectl apply -f pizzeria-svc.yml`
 
 
 #### Create a pod for the nginx proxy
@@ -204,8 +263,8 @@ Like in task 1, the pizzeria app requires some environment variables to be defin
   `$ kubectl apply -f proxy-pod.yml`
 
 #### Create a deployment for the nginx proxy
-- Create a proxy-deployment.yml file. \
-  `$ nano proxy-deployment.yml`
+- Create a proxy-dep.yml file. \
+  `$ nano proxy-dep.yml`
 
       apiVersion: apps/v1
       kind: Deployment
@@ -231,11 +290,11 @@ Like in task 1, the pizzeria app requires some environment variables to be defin
               - containerPort: 80
 
 - Apply the deployment. \
-  `$ kubectl apply -f proxy-deployment.yml`
+  `$ kubectl apply -f proxy-dep.yml`
 
 #### Create a service for the nginx proxy
-- Create a proxy-service.yml file. \
-  `$ nano proxy-service.yml`
+- Create a proxy-svc.yml file. \
+  `$ nano proxy-svc.yml`
 
       apiVersion: v1
       kind: Service
@@ -252,7 +311,7 @@ Like in task 1, the pizzeria app requires some environment variables to be defin
             nodePort: 32001
 
 - Apply the service. \
-  `$ kubectl apply -f proxy-service.yml`
+  `$ kubectl apply -f proxy-svc.yml`
 
 
 #### Expose the App
@@ -263,3 +322,11 @@ Like in task 1, the pizzeria app requires some environment variables to be defin
   - `8080:443` -Forward the external port 8080 to internal port 443 (HTTPS). The external port is the one used to connect to the service over the internet.
   - `--address 0.0.0.0` -Specify which IP address to allow connections from. `0.0.0.0` will allow connections from any IP address.
   - `&` - An ampersand tells Linux to run the process in the background, leaving the shell available to use.
+
+- Expose the Mongo Express server to the internet. \
+  `$ kubectl port-forward svc/mongoexpress-service 8081:8081 --address 0.0.0.0 &`
+  - `svc/mongoexpress-service` -The Service to run, in our case the mongo express server.
+  - `8080:8081` -Forward the external port 8081 to internal port 8081 (HTTPS). The external port is the one used to connect to the service over the internet.
+  - `--address 0.0.0.0` -Specify which IP address to allow connections from. `0.0.0.0` will allow connections from any IP address.
+  - `&` - An ampersand tells Linux to run the process in the background, leaving the shell available to use.
+
