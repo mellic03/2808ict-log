@@ -30,7 +30,7 @@
 
 - List the docker images. \
     `$ docker images`
-    ![](img/task%203/docker-images-0.png)
+    ![](img/docker-images-0.png)
 
 ## Pizzeria (frontend)
 
@@ -178,11 +178,11 @@ Like in task 1, the pizzeria app requires some environment variables to be defin
 
 - Verify the pod status. \
   `$ kubectl get pods` \
-  ![](img/task%203/pod-status.png)
+  ![](img/pod-status.png)
 
 - Check logs to ensure nothing went wrong. \
   `$ kubectl logs pizzeria-pod` \
-  ![](img/task%203/pod-logs.png)
+  ![](img/pod-logs.png)
 
 
 

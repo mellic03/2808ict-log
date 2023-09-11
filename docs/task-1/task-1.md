@@ -196,68 +196,68 @@ The Pizzeria application should now be accessible over HTTPS and the Mongo Expre
 
 
 #### Nginx Proxy logs
-![](img/task%201/proxy-logs.png)
+![](img/proxy-logs.png)
 
 #### Pizzeria (frontend) logs
-![](img/task%201/frontend-logs.png)
+![](img/frontend-logs.png)
 
 #### Mongo Express logs
-![](img/task%201/mongoexpress-logs.png)
+![](img/mongoexpress-logs.png)
 
 #### MongoDB (backend) logs
-![](img/task%201/backend-logs.png)
+![](img/backend-logs.png)
 
 
 
 # Using the App (proof of working database)
 
 - Initially we are not logged in.
-![](img/task%201/proof/pizza1.png)
+![](img/proof/pizza1.png)
 
 
 - We can register on the `Register` page.
-![](img/task%201/proof/pizza2.png)
+![](img/proof/pizza2.png)
 
 
 - We can then log in.
-![](img/task%201/proof/pizza3.png)
+![](img/proof/pizza3.png)
 
 
 - We are now logged in.
-![](img/task%201/proof/pizza4.png)
+![](img/proof/pizza4.png)
 
 
 - We can make an order.
-![](img/task%201/proof/makeorder.png)
+![](img/proof/makeorder.png)
 
 
 - After submitting the order, it shows on the `Orders` page.
-![](img/task%201/proof/orders.png)
+![](img/proof/orders.png)
 
 
 - The `Account Info` page lets the user edit their information which is stored in the database.
-![](img/task%201/proof/account-info.png)
+![](img/proof/account-info.png)
 
 
 - Connect to Mongo Express by visiting the instance on port 8081. \
   There are four databases, `admin`, `config`, `local` and `test`.
-  ![](img/task%201/proof/db-databases.png)
+  ![](img/proof/db-databases.png)
 
 - Only the `test` database stores information for the pizzeria, the other three are there by default when using MongoDB.
 
 
 
 - The `test` database has three collections, `orders`, `sessions` and `users`.
-  ![](img/task%201/proof/db-test.png)
+  ![](img/proof/db-test.png)
 
 
 - The `orders` collection stores orders information.
-  ![](img/task%201/proof/db-orders.png)
+  ![](img/proof/db-orders.png)
 
 - The `users` collection stores information about registered users.
   Note that the password field is encrypted. Storing the users raw password in a database like this would be a massive security issue.
-  ![](img/task%201/proof/db-users.png)
+  ![](img/proof/db-users.png)
 
 - The `sessions` collection stores browser session information for currently connected users.
-  ![](img/task%201/proof/db-sessions.png)
+  ![](img/proof/db-sessions.png)
 
