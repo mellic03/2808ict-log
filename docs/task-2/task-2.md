@@ -188,7 +188,7 @@
 
         pizzeria:
           image: pizzeria
-         container_name: frontend
+          container_name: frontend
           depends_on:
             - mongodb
           networks:
