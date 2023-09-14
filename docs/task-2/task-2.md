@@ -1,4 +1,4 @@
-![image](https://github.com/mellic03/2808ict-log/assets/140577176/f5389ea1-f663-45f7-9408-246240e0a3e1)# Task 2 - Docker Compose
+# Task 2 - Docker Compose
 
 ## Pizzeria App (Front-End)
 
