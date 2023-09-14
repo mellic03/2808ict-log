@@ -1,4 +1,4 @@
-# Task 2 - Docker Compose
+![image](https://github.com/mellic03/2808ict-log/assets/140577176/f5389ea1-f663-45f7-9408-246240e0a3e1)# Task 2 - Docker Compose
 
 ## Pizzeria App (Front-End)
 
@@ -141,7 +141,9 @@
 
 - Build the Docker image. We'll name the image "nginx-proxy". \
     `$ docker build -t nginx-proxy .`
-
+  
+- Return to the pizzeria directory. \
+    `$ cd ..`
 
 ## Docker Compose
 
@@ -181,6 +183,7 @@
             - ME_CONFIG_MONGODB_SERVER=backend
           depends_on:
             - mongodb
+          restart: unless-stopped 
           networks:
             - backend
           ports:
@@ -191,6 +194,7 @@
           container_name: frontend
           depends_on:
             - mongodb
+          restart: unless-stopped
           networks:
             - backend
             - frontend
@@ -202,6 +206,7 @@
           container_name: proxy
           depends_on:
             - pizzeria
+          restart: unless-stopped
           volumes:
             - ./nginx-proxy/nginx.conf:/etc/nginx/nginx.conf:ro
             - ./nginx-proxy/ssl/localhost.crt:/etc/ssl/certs/localhost.crt
