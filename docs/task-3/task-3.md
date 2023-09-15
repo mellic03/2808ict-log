@@ -316,6 +316,10 @@ Like in task 1, the pizzeria app requires some environment variables to be defin
 
 #### Expose the App
 
+- First, run `minikube tunnel` either on a separate ssh instance
+  or in the background by running `minikube tunnel &`.
+
+
 - Expose the Nginx server to the internet. \
   `$ kubectl port-forward svc/proxy-service 8080:443 --address 0.0.0.0 &`
   - `svc/proxy-service` -The Service to run, in our case the nginx proxy.
