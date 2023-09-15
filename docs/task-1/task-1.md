@@ -77,7 +77,6 @@ What is meant by automatic DNS resolution? We can get the local ipv4 address of 
       subjectAltName = @alt_names
       [alt_names]
       DNS.1 = localhost
-      DNS.2 = fake1.local
 
 - Generate the ssl certificate. \
     `$ openssl req -new -nodes -newkey rsa:2048 -keyout localhost.key -out localhost.csr -subj "/C=US/ST=YourState/L=YourCity/O=Example-Certificates/CN=localhost.local"`

@@ -46,27 +46,27 @@
 - Create a mongo-dep.yml file. \
   `$ nano mongo-dep.yml`
 
-      apiVersion: apps/v1
-      kind: Deployment
-      metadata:
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
         name: mongo-deployment
         labels:
-          app: mongo
-      spec:
+            app: mongo
+        spec:
         replicas: 1
         selector:
-          matchLabels:
+            matchLabels:
             app: mongo
         template:
-          metadata:
+            metadata:
             labels:
-              app: mongo
-          spec:
+                app: mongo
+            spec:
             containers:
             - name: backend
-              image: mongo
-              ports:
-              - containerPort: 27017
+                image: mongo
+                ports:
+                - containerPort: 27017
 
 - Apply the deployment. \
   `$ kubectl apply -f mongo-dep.yml`
@@ -76,17 +76,18 @@
 - Create a mongo-svc.yml file. \
   `$ nano mongo-svc.yml`
 
-      apiVersion: v1
-      kind: Service
-      metadata:
+        apiVersion: v1
+        kind: Service
+        metadata:
         name: mongo-service
-      spec:
+        spec:
         selector:
-          app: mongo
+            app: mongo
         ports:
-          - protocol: TCP
+            - protocol: TCP
             port: 27017
             targetPort: 27017
+
 
 - Apply the service. \
   `$ kubectl apply -f mongo-svc.yml`
@@ -96,30 +97,31 @@
 - Create a mongo-dep.yml file. \
   `$ nano mongoexpress-dep.yml`
 
-      apiVersion: apps/v1
-      kind: Deployment
-      metadata:
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
         name: mongoexpress-deployment
         labels:
-          app: mongoexpress
-      spec:
+            app: mongoexpress
+        spec:
         replicas: 1
         selector:
-          matchLabels:
+            matchLabels:
             app: mongoexpress
         template:
-          metadata:
+            metadata:
             labels:
-              app: mongoexpress
-          spec:
+                app: mongoexpress
+            spec:
             containers:
             - name: mongoexpress
-              image: mongo-express
-              ports:
-              - containerPort: 8081
-              env:
-              - name: ME_CONFIG_MONGODB_SERVER
+                image: mongo-express
+                ports:
+                - containerPort: 8081
+                env:
+                - name: ME_CONFIG_MONGODB_SERVER
                 value: "mongo-service"
+
 
 
 - Apply the deployment. \
@@ -130,16 +132,16 @@
 - Create a mongoexpress-svc.yml file. \
   `$ nano mongoexpress-svc.yml`
 
-      apiVersion: v1
-      kind: Service
-      metadata:
+        apiVersion: v1
+        kind: Service
+        metadata:
         name: mongoexpress-service
-      spec:
+        spec:
         type: LoadBalancer
         selector:
-          app: mongoexpress
+            app: mongoexpress
         ports:
-          - protocol: TCP
+            - protocol: TCP
             port: 8081
             targetPort: 8081
 
@@ -154,24 +156,25 @@ Like in task 1, the pizzeria app requires some environment variables to be defin
     `$ cd ..` \
     `$ nano pizzeria-pod.yml`
 
-      apiVersion: v1
-      kind: Pod
-      metadata:
+        apiVersion: v1
+        kind: Pod
+        metadata:
         name: pizzeria-pod
         labels:
-          app: pizzeria
-      spec:
+            app: pizzeria
+        spec:
         containers:
-          - name: frontend
+            - name: frontend
             imagePullPolicy: Never
             image: pizzeria
             env:
             - name: MONGODB_URI
-              value: "mongodb://backend:27017/"
+                value: "mongodb://backend:27017/"
             - name: PORT
-              value: "4200"
+                value: "4200"
             - name: SECRET
-              value: "secret"
+                value: "secret"
+
 
 - Create the pod. \
   `$ kubectl apply -f pizzeria-pod.yml`
@@ -191,28 +194,28 @@ Like in task 1, the pizzeria app requires some environment variables to be defin
 - Create a pizzeria-dep.yml file. \
   `$ nano pizzeria-dep.yml`
 
-      apiVersion: apps/v1
-      kind: Deployment
-      metadata:
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
         name: pizzeria-deployment
         labels:
-          app: pizzeria
-      spec:
+            app: pizzeria
+        spec:
         replicas: 1
         selector:
-          matchLabels:
+            matchLabels:
             app: pizzeria
         template:
-          metadata:
+            metadata:
             labels:
-              app: pizzeria
-          spec:
+                app: pizzeria
+            spec:
             containers:
             - name: frontend
-              image: pizzeria
-              imagePullPolicy: Never
-              ports:
-              - containerPort: 4200
+                image: pizzeria
+                imagePullPolicy: Never
+                ports:
+                - containerPort: 4200
 
 - Run the deployment. \
   `$ kubectl apply -f pizzeria-dep.yml`
@@ -221,16 +224,16 @@ Like in task 1, the pizzeria app requires some environment variables to be defin
 - Create a pizzeria-svc.yml file. \
   `$ nano pizzeria-svc.yml`
 
-      apiVersion: v1
-      kind: Service
-      metadata:
+        apiVersion: v1
+        kind: Service
+        metadata:
         name: pizzeria-service
-      spec:
+        spec:
         type: LoadBalancer
         selector:
-          app: pizzeria
+            app: pizzeria
         ports:
-          - protocol: TCP
+            - protocol: TCP
             port: 4200
             targetPort: 4200
             nodePort: 32000
@@ -247,15 +250,15 @@ Like in task 1, the pizzeria app requires some environment variables to be defin
 - Create a proxy-pod.yml file. \
   `$ nano proxy-pod.yml`
 
-      apiVersion: v1
-      kind: Pod
-      metadata:
+        apiVersion: v1
+        kind: Pod
+        metadata:
         name: proxy-pod
         labels:
-          app: proxy
-      spec:
+            app: proxy
+        spec:
         containers:
-          - name: proxy
+            - name: proxy
             imagePullPolicy: Never
             image: nginx-proxy
 
@@ -266,28 +269,28 @@ Like in task 1, the pizzeria app requires some environment variables to be defin
 - Create a proxy-dep.yml file. \
   `$ nano proxy-dep.yml`
 
-      apiVersion: apps/v1
-      kind: Deployment
-      metadata:
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
         name: proxy-deployment
         labels:
-          app: proxy
-      spec:
+            app: proxy
+        spec:
         replicas: 1
         selector:
-          matchLabels:
+            matchLabels:
             app: proxy
         template:
-          metadata:
+            metadata:
             labels:
-              app: proxy
-          spec:
+                app: proxy
+            spec:
             containers:
             - name: proxy
-              image: nginx-proxy
-              imagePullPolicy: Never
-              ports:
-              - containerPort: 80
+                image: nginx-proxy
+                imagePullPolicy: Never
+                ports:
+                - containerPort: 443
 
 - Apply the deployment. \
   `$ kubectl apply -f proxy-dep.yml`
@@ -296,19 +299,18 @@ Like in task 1, the pizzeria app requires some environment variables to be defin
 - Create a proxy-svc.yml file. \
   `$ nano proxy-svc.yml`
 
-      apiVersion: v1
-      kind: Service
-      metadata:
+        apiVersion: v1
+        kind: Service
+        metadata:
         name: proxy-service
-      spec:
-        type: LoadBalancer
+        spec:
+        type: NodePort
         selector:
-          app: proxy
+            app: proxy
         ports:
-          - protocol: TCP
-            port: 80
-            targetPort: 443
-            nodePort: 32001
+            - name: https
+            port: 443
+
 
 - Apply the service. \
   `$ kubectl apply -f proxy-svc.yml`

@@ -2,16 +2,10 @@
 
 # Create the pods, deployments and services for the containers
 
-minikube kubectl -- apply -f mongo-dep.yml
-minikube kubectl -- apply -f mongo-svc.yml
+kubectl apply -f mongo-dep.yml && kubectl apply -f mongo-svc.yml
 
-minikube kubectl -- apply -f mongoexpress-dep.yml
-minikube kubectl -- apply -f mongoexpress-svc.yml
+kubectl apply -f mongoexpress-dep.yml && kubectl apply -f mongoexpress-svc.yml
 
-minikube kubectl -- apply -f pizzeria-pod.yml
-minikube kubectl -- apply -f pizzeria-dep.yml
-minikube kubectl -- apply -f pizzeria-svc.yml
+kubectl apply -f pizzeria-pod.yml && kubectl apply -f pizzeria-dep.yml && kubectl apply -f pizzeria-svc.yml
 
-minikube kubectl -- apply -f proxy-pod.yml
-minikube kubectl -- apply -f proxy-dep.yml
-minikube kubectl -- apply -f proxy-svc.yml
+kubectl apply -f proxy-pod.yml && kubectl apply -f proxy-dep.yml && kubectl apply -f proxy-svc.yml
