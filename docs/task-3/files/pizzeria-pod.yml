@@ -11,7 +11,7 @@ spec:
       image: pizzeria
       env:
       - name: MONGODB_URI
-        value: "mongodb://backend:27017/"
+        value: "mongodb://mongo-service:27017/"
       - name: PORT
         value: "4200"
       - name: SECRET
