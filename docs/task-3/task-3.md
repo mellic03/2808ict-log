@@ -41,9 +41,9 @@
   `$ cp task1/pizzeria task3/pizzeria` \
   `$ cd task3/pizzeria`
 
-- Open the Dockerfile and change  `ENV MONGODB_URI="mongodb://backend:27017/"` to `ENV MONGODB_URI="mongodb://mongo-service:27017/"`.
+- Open the Dockerfile and change  `ENV MONGODB_URI="mongodb://mongo-backend:27017/"` to `ENV MONGODB_URI="mongodb://mongo-service:27017/"`.
 
-  `backend` will be renamed to `mongo-service` in minikube for clarity.
+  `mongo-backend` will be renamed to `mongo-service` in minikube for clarity.
 
       # Use the node docker image as a base for this image.
       FROM node:latest
@@ -81,7 +81,7 @@
 - Like with the pizzeria app, we need to make a small edit. \
   Open `nginx.conf` and change `server frontend:4200` to `server pizzeria-service:4200`.
 
-  Like `backend`, `frontend` is also being renamed for clarity.
+  Like `mongo-backend`, `frontend` is also being renamed for clarity.
 
       # One process running.
       worker_processes 1;
