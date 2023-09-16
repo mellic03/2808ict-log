@@ -42,31 +42,76 @@
     `$ cd task3/pizzeria` \
     `$ docker build -t frontend .`
 
+## Minikube
+#### Create a persistent volume
+
+- Create a mongo-pvol.yml file. \
+  `$ nano mongo-pvol.yml`
+
+      apiVersion: v1
+      kind: PersistentVolume
+      metadata:
+        name: mongodb-pv
+      spec:
+        capacity:
+          storage: 1Gi
+        volumeMode: Filesystem
+        accessModes:
+          - ReadWriteOnce
+        persistentVolumeReclaimPolicy: Retain
+        storageClassName: manual
+        hostPath:
+          path: /data/mongodb
+
+- Create a mongo-pvolc.yml (persistent volume claim) file. \
+  `$ nano mongo-pvolc.yml`
+
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
+        name: mongodb-pvc
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        storageClassName: manual
+        resources:
+          requests:
+            storage: 1Gi
+
+
 #### Create a deployment for MongoDB
 - Create a mongo-dep.yml file. \
   `$ nano mongo-dep.yml`
 
-        apiVersion: apps/v1
-        kind: Deployment
-        metadata:
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
         name: mongo-deployment
         labels:
-            app: mongo
-        spec:
+          app: mongo
+      spec:
         replicas: 1
         selector:
-            matchLabels:
+          matchLabels:
             app: mongo
         template:
-            metadata:
+          metadata:
             labels:
-                app: mongo
-            spec:
+              app: mongo
+          spec:
             containers:
             - name: backend
-                image: mongo
-                ports:
-                - containerPort: 27017
+              image: mongo
+              ports:
+              - containerPort: 27017
+              volumeMounts:
+              - name: mongodb-data
+                mountPath: /data/db
+
+            volumes:
+            - name: mongodb-data
+              persistentVolumeClaim:
+                claimName: mongodb-pvc
 
 - Apply the deployment. \
   `$ kubectl apply -f mongo-dep.yml`
