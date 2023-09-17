@@ -241,3 +241,6 @@ Logs
 ![image](https://github.com/mellic03/2808ict-log/assets/140577176/c1c792f7-210a-411a-aba7-e4121ad0f158)
 
 ![image](https://github.com/mellic03/2808ict-log/assets/140577176/dcf645b3-4020-4096-b952-ff4976c79dd1)
+
+![image](https://github.com/mellic03/2808ict-log/assets/140577176/10aeb7c7-ce7a-44a6-b9ee-26a2c953f70b)
+
