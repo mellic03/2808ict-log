@@ -232,3 +232,8 @@
     `$ docker-compose up`
 
 The Pizzeria application should now be accessible over HTTPS and the Mongo Express gui over HTTP on port 8081.
+
+Logs
+![image](https://github.com/mellic03/2808ict-log/assets/140577176/8b9b5724-0b0a-4678-8fce-afea37ab7180)
+![image](https://github.com/mellic03/2808ict-log/assets/140577176/7f07eda8-f9a3-4f43-9593-f7dd4728a8cd)
+![image](https://github.com/mellic03/2808ict-log/assets/140577176/4b4c2408-8596-475e-8cda-b73134a0dd45)
